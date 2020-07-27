@@ -94,12 +94,13 @@ class loginHandler extends main
 
     public function loginForm()
     {
-        $this->pageHead('Login', 'Login to website name', '../', true, false);
+        $this->pageHead('Login', 'Login to website name', '../', true, true);
         $this->tagOpen('div', 'container');
         $this->formBuilder('POST', 'check_login.php');
-        $this->inputBuilder('text', 'login', '', 'username');
+        $this->inputBuilder('text', 'username', '', 'username', 3, 24, 'username');
+        $this->inputBuilder('text', 'THE_username', '', 'username');
         $this->tagOpen('div', 'form-group');
-        $this->inputBuilder('password', 'password');
+        $this->inputBuilder('password', 'THE_password');
         $this->tagClose('div');
         $this->formButtonBuilder('Login');
         $this->tagClose('form');
