@@ -9,6 +9,13 @@ class loginHandler extends main
     private string $ip_address;
     public int $uid;
 
+    public function ifLoggedIn(string $redirect_to = '../account/')
+    {
+        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            $this->redirectTo($redirect_to);
+        }
+    }
+
     public function loginButtonPressed(): bool
     {
         if ($this->issetCheck('POST', 'LoginButton')) {

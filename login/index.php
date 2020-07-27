@@ -1,10 +1,11 @@
 <?php
 require_once('../classes/login_handler.php');
 $lh = new loginHandler();
+$lh->ifLoggedIn();
 if ($lh->loginButtonPressed()) {
     if ($lh->fakeInputNotFilled()) {
         $lh->attemptDetails($_POST['THE_username'], $_POST['THE_password']);
-        //$lh->attemptLogin('../account');
+        $lh->attemptLogin('../account');
     } else {
         $lh->redirectTo('index.php');
     }
