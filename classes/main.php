@@ -225,9 +225,14 @@ class main
         $this->outputString("<option value='$value' $sel>$text</option>");
     }
 
-    public function formButtonBuilder(string $text = 'Update', string $class = 'btn btn-primary')
+    public function formButtonBuilder(string $text = 'Update', string $name = '', string $class = 'btn btn-primary')
     {
-        $this->outputString("<button type='submit' class='$class'>$text</button>");
+        if (empty($name)) {
+            $n = '';
+        } else {
+            $n = "name='$name'";
+        }
+        $this->outputString("<button type='submit' class='$class' $n>$text</button>");
     }
 
 }
