@@ -5,6 +5,7 @@ class main extends config
 {
     public function __construct()
     {
+        $this->startSession();
         if (self::SHOW_ERRORS) {
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
