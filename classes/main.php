@@ -1,6 +1,7 @@
 <?php
+require_once('../config.php');
 
-class main
+class main extends config
 {
     public function __construct(bool $show_errors = true)
     {
