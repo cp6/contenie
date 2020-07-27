@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `last_login_ip` varchar(50) DEFAULT NULL,
   `last_login_at` datetime DEFAULT NULL,
   `activated` tinyint(1) DEFAULT 0,
+  `account_type` tinyint(1) DEFAULT 1,
   `last_fail` datetime DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `user_key` (`username`)
