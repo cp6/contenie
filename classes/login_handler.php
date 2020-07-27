@@ -9,7 +9,26 @@ class loginHandler extends main
     private string $ip_address;
     public int $uid;
 
-    public function __construct(string $username, string $password)
+    public function loginButtonPressed(): bool
+    {
+        if ($this->issetCheck('POST', 'LoginButton')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function fakeInputNotFilled(): bool
+    {
+        if (!empty($_POST['username'])) {
+            //Hidden form was filled in...
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function attemptDetails(string $username, string $password)
     {
         $this->username = $username;
         $this->stated_password = $password;
@@ -96,13 +115,13 @@ class loginHandler extends main
     {
         $this->pageHead('Login', 'Login to website name', '../', true, true);
         $this->tagOpen('div', 'container');
-        $this->formBuilder('POST', 'check_login.php');
+        $this->formBuilder('', 'post');
         $this->inputBuilder('text', 'username', '', 'username', 3, 24, 'username');
-        $this->inputBuilder('text', 'THE_username', '', 'username', 3, 24);
+        $this->inputBuilder('text', 'THE_username', '', 'username', 3, 24, '', true);
         $this->tagOpen('div', 'form-group');
-        $this->inputBuilder('password', 'THE_password', '', '', 8, 54);
+        $this->inputBuilder('password', 'THE_password', '', '', 8, 54, '', true);
         $this->tagClose('div');
-        $this->formButtonBuilder('Login');
+        $this->formButtonBuilder('Login', 'LoginButton');
         $this->tagClose('form');
         $this->outputString("</div></body></html>");
     }
