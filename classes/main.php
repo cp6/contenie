@@ -179,32 +179,37 @@ class main
         }
     }
 
-    public function inputBuilder(string $type, string $name_id, string $value = '', string $placeholder = '', int $min = 0, int $max = 9999, string $class = '')
+    public function inputBuilder(string $type, string $name_id, string $value = '', string $placeholder = '', int $min = 0, int $max = 9999, string $class = '', bool $required = false)
     {
+        if ($required) {
+            $req = 'required';
+        } else {
+            $req = '';
+        }
         $this->outputString("<input type='$type' class='form-control $class' name='$name_id' id='$name_id' ");
         if ($value == '' && $placeholder != '') {
             if ($type == 'number') {
-                $this->outputString("placeholder='$placeholder' min='$min' max='$max'>");
+                $this->outputString("placeholder='$placeholder' min='$min' max='$max' $req>");
             } else {
-                $this->outputString("placeholder='$placeholder' minlength='$min' maxlength='$max'>");
+                $this->outputString("placeholder='$placeholder' minlength='$min' maxlength='$max' $req>");
             }
         } elseif ($value != '' && $placeholder == '') {
             if ($type == 'number') {
-                $this->outputString("value='$value' min='$min' max='$max'>");
+                $this->outputString("value='$value' min='$min' max='$max' $req>");
             } else {
-                $this->outputString("value='$value' minlength='$min' maxlength='$max'>");
+                $this->outputString("value='$value' minlength='$min' maxlength='$max' $req>");
             }
         } elseif ($value == '' && $placeholder == '') {
             if ($type == 'number') {
-                $this->outputString("min='$min' max='$max'>");
+                $this->outputString("min='$min' max='$max' $req>");
             } else {
-                $this->outputString("minlength='$min' maxlength='$max'>");
+                $this->outputString("minlength='$min' maxlength='$max' $req>");
             }
         } else {
             if ($type == 'number') {
-                $this->outputString("placeholder='$placeholder' value='$value' min='$min' max='$max'>");
+                $this->outputString("placeholder='$placeholder' value='$value' min='$min' max='$max' $req>");
             } else {
-                $this->outputString("placeholder='$placeholder' value='$value' minlength='$min' maxlength='$max'>");
+                $this->outputString("placeholder='$placeholder' value='$value' minlength='$min' maxlength='$max' $req>");
             }
         }
     }
@@ -220,21 +225,9 @@ class main
         $this->outputString("<option value='$value' $sel>$text</option>");
     }
 
-    public function formButtonBuilder(string $text = 'Update', string $class = 'btn btn-aqua')
+    public function formButtonBuilder(string $text = 'Update', string $class = 'btn btn-primary')
     {
         $this->outputString("<button type='submit' class='$class'>$text</button>");
     }
-
-    public function loginForm()
-    {
-        $this->formBuilder('POST', 'check_login.php');
-        $this->inputBuilder('text', 'login', '', 'username');
-        $this->tagOpen('div', 'form-group');
-        $this->inputBuilder('password', 'password');
-        $this->tagClose('div');
-        $this->formButtonBuilder('Login');
-        $this->tagClose('form');
-    }
-
 
 }
