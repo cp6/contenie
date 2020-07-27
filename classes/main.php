@@ -163,28 +163,6 @@ class main extends config
         return $value;
     }
 
-    public function pageHead(string $title, string $desc, string $depth = '../', bool $bs_css = true, bool $cus_css = true, bool $bs_js = false, bool $jq_js = false)
-    {
-        $this->outputString('<!DOCTYPE html>');
-        $this->outputString('<html lang="en">');
-        $this->tagOpen('head');
-        $this->outputString("<title>$title</title>");
-        $this->outputString('<meta name="viewport" content="width=device-width, initial-scale=1">');
-        $this->outputString('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">');
-        $this->outputString('<meta http-equiv="X-UA-Compatible" content="IE=edge">');
-        $this->outputString('<meta name="description" content="' . $desc . '">');
-        if ($bs_css)
-            $this->cssBootstrap($depth);
-        if ($cus_css)
-            $this->cssCustom($depth);
-        if ($jq_js)
-            $this->jsJquery($depth);
-        if ($bs_js)
-            $this->jsBootstrap($depth);
-        $this->tagClose('head');
-    }
-
-
     /* FORM STUFF */
 
     public function formBuilder(string $action, string $method = 'post', string $id = '')
@@ -253,6 +231,39 @@ class main extends config
     }
 
     /* HTML stuff */
+
+    public function pageHead(string $title, string $desc, string $depth = '../', bool $bs_css = true, bool $cus_css = true, bool $bs_js = false, bool $jq_js = false, string $style = '')
+    {
+        $this->outputString('<!DOCTYPE html>');
+        $this->outputString('<html lang="en">');
+        $this->tagOpen('head');
+        $this->outputString("<title>$title</title>");
+        $this->outputString('<meta name="viewport" content="width=device-width, initial-scale=1">');
+        $this->outputString('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">');
+        $this->outputString('<meta http-equiv="X-UA-Compatible" content="IE=edge">');
+        $this->outputString('<meta name="description" content="' . $desc . '">');
+        if ($bs_css)
+            $this->cssBootstrap($depth);
+        if ($cus_css)
+            $this->cssCustom($depth);
+        if ($jq_js)
+            $this->jsJquery($depth);
+        if ($bs_js)
+            $this->jsBootstrap($depth);
+        if (!empty($style)) {
+            $this->outputString("<style>$style</style>");
+        }
+        $this->tagClose('head');
+    }
+
+    public function closeBodyHtml(string $depth = '../', bool $bs_js = false, bool $jq_js = false)
+    {
+        if ($jq_js)
+            $this->jsJquery($depth);
+        if ($bs_js)
+            $this->jsBootstrap($depth);
+        $this->outputString('</body></html>');
+    }
 
     public function navBar(string $location, int $level = 2)
     {
