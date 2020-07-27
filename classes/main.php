@@ -63,22 +63,22 @@ class main
 
     public function cssBootstrap(string $depth = '../')
     {
-        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/bootstrap.min.css"/>');
+        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/css/bootstrap.min.css"/>');
     }
 
     public function cssCustom(string $depth = '../')
     {
-        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/custom.min.css"/>');
+        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/css/custom.min.css"/>');
     }
 
     public function jsJquery(string $depth = '../')
     {
-        $this->outputString('<script src="' . $depth . 'assets/jquery.slim.min.js"></script>');
+        $this->outputString('<script src="' . $depth . 'assets/js/jquery.slim.min.js"></script>');
     }
 
     public function jsBootstrap(string $depth = '../')
     {
-        $this->outputString('<script src="' . $depth . 'assets/bootstrap.min.js"></script>');
+        $this->outputString('<script src="' . $depth . 'assets/js/bootstrap.min.js"></script>');
     }
 
     public function issetCheck(string $type, string $value): bool
@@ -179,32 +179,32 @@ class main
         }
     }
 
-    public function inputBuilder(string $type, string $name_id, string $value = '', string $placeholder = '', int $min = 0, int $max = 9999)
+    public function inputBuilder(string $type, string $name_id, string $value = '', string $placeholder = '', int $min = 0, int $max = 9999, string $class = '')
     {
-        $this->outputString("<input type='$type' class='form-control' name='$name_id' id='$name_id' ");
+        $this->outputString("<input type='$type' class='form-control $class' name='$name_id' id='$name_id' ");
         if ($value == '' && $placeholder != '') {
             if ($type == 'number') {
                 $this->outputString("placeholder='$placeholder' min='$min' max='$max'>");
             } else {
-                $this->outputString("placeholder='$placeholder'>");
+                $this->outputString("placeholder='$placeholder' minlength='$min' maxlength='$max'>");
             }
         } elseif ($value != '' && $placeholder == '') {
             if ($type == 'number') {
                 $this->outputString("value='$value' min='$min' max='$max'>");
             } else {
-                $this->outputString("value='$value'>");
+                $this->outputString("value='$value' minlength='$min' maxlength='$max'>");
             }
         } elseif ($value == '' && $placeholder == '') {
             if ($type == 'number') {
                 $this->outputString("min='$min' max='$max'>");
             } else {
-                $this->outputString(">");
+                $this->outputString("minlength='$min' maxlength='$max'>");
             }
         } else {
             if ($type == 'number') {
                 $this->outputString("placeholder='$placeholder' value='$value' min='$min' max='$max'>");
             } else {
-                $this->outputString("placeholder='$placeholder' value='$value'>");
+                $this->outputString("placeholder='$placeholder' value='$value' minlength='$min' maxlength='$max'>");
             }
         }
     }
