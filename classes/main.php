@@ -252,4 +252,49 @@ class main extends config
         $this->outputString("<button type='submit' class='$class' $n>$text</button>");
     }
 
+    /* HTML stuff */
+
+    public function navBar(string $location, int $level = 2)
+    {
+        if ($level == 2) {
+            $dir_level = '../';
+        } elseif ($level == 3) {
+            $dir_level = '../../';
+        } else {
+            $dir_level = '';
+        }
+        $this->outputString('<nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">');
+        $this->outputString('<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false">');
+        $this->outputString('<span class="navbar-toggler-icon"></span></button>');
+        $this->outputString('<div class="collapse navbar-collapse justify-content-md-center" id="navbar">');
+        $this->outputString('<ul class="navbar-nav">');
+        $this->outputString('<li class="nav-item active">');
+        $this->outputString('<a class="nav-link" href="' . $dir_level . 'index.php">Home</a></li>');
+        $this->outputString('<li class="nav-item dropdown">');
+        $this->outputString('<a class="nav-link dropdown-toggle" href="https://'.self::WEBSITE_DOMAIN.'" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>');
+        $this->navMenuItems($location, $level);
+        $this->outputString('</li></ul></div></nav>');
+        $this->outputString('');
+    }
+
+    public function navMenuItems(string $location, int $level = 2)
+    {
+        if ($level == 2) {
+            $dir_level = '../';
+        } elseif ($level == 3) {
+            $dir_level = '../../';
+        } else {
+            $dir_level = '';
+        }
+        $this->outputString("<div class='dropdown-menu' aria-labelledby='dropdown_main'>");
+        $this->outputString("<a class='dropdown-item' href='#'>Home</a>");
+        $this->outputString("<div class='dropdown-divider'></div>");
+        if ($location != 'account') {
+            $this->outputString("<a class='dropdown-item' href='{$dir_level}account/'>Account</a>");
+        }
+        $this->outputString("<div class='dropdown-divider'></div>");
+        $this->outputString("<a class='dropdown-item' href='{$dir_level}logout/'>Logout</a>");
+        $this->outputString("</div>");
+    }
+
 }
