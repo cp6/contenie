@@ -2,6 +2,9 @@
 
 class main
 {
+
+    const FAIL_ATTEMPTS_ALLOWED = 4;//Failed allowed for ip in 10 minutes before temp blocked
+
     public function __construct(bool $show_errors = true)
     {
         if ($show_errors) {
@@ -63,22 +66,22 @@ class main
 
     public function cssBootstrap(string $depth = '../')
     {
-        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/bootstrap.min.css"/>');
+        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/css/bootstrap.min.css"/>');
     }
 
     public function cssCustom(string $depth = '../')
     {
-        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/custom.min.css"/>');
+        $this->outputString('<link rel="stylesheet" href="' . $depth . 'assets/css/custom.min.css"/>');
     }
 
     public function jsJquery(string $depth = '../')
     {
-        $this->outputString('<script src="' . $depth . 'assets/jquery.slim.min.js"></script>');
+        $this->outputString('<script src="' . $depth . 'assets/js/jquery.slim.min.js"></script>');
     }
 
     public function jsBootstrap(string $depth = '../')
     {
-        $this->outputString('<script src="' . $depth . 'assets/bootstrap.min.js"></script>');
+        $this->outputString('<script src="' . $depth . 'assets/js/bootstrap.min.js"></script>');
     }
 
     public function issetCheck(string $type, string $value): bool
@@ -224,17 +227,5 @@ class main
     {
         $this->outputString("<button type='submit' class='$class'>$text</button>");
     }
-
-    public function loginForm()
-    {
-        $this->formBuilder('POST', 'check_login.php');
-        $this->inputBuilder('text', 'login', '', 'username');
-        $this->tagOpen('div', 'form-group');
-        $this->inputBuilder('password', 'password');
-        $this->tagClose('div');
-        $this->formButtonBuilder('Login');
-        $this->tagClose('form');
-    }
-
 
 }
