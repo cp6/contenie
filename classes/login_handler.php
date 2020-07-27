@@ -90,7 +90,7 @@ class loginHandler extends main
 
     public function attemptLogin(string $redirect_to = '')
     {
-        if ($this->getRecentFailCount() >= main::FAIL_ATTEMPTS_ALLOWED) {//IP has had X or more fails in last 10 minutes
+        if ($this->getRecentFailCount() >= config::FAIL_ATTEMPTS_ALLOWED) {//IP has had X or more fails in last 10 minutes
             return "IP Address has been locked for 10 minutes";
         }
         if ($this->getUserData()) {//Username found
