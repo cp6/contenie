@@ -6,6 +6,8 @@ class config
     const WEBSITE_DESC = 'This is the contenie dev website page for contenie dev.';
     const WEBSITE_DOMAIN = '';
 
+    const REQUIRE_EMAIL_ACTIVATION = true;
+
     const DB_USER = 'root';
     const DB_PASSWORD = '';
 
