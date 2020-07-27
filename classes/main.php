@@ -3,9 +3,9 @@ require_once('../config.php');
 
 class main extends config
 {
-    public function __construct(bool $show_errors = true)
+    public function __construct()
     {
-        if ($show_errors) {
+        if (self::SHOW_ERRORS) {
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
@@ -18,11 +18,11 @@ class main extends config
     public function db_connect(bool $select_only = false, string $db_host = '127.0.0.1'): object
     {
         if ($select_only) {
-            $db_user = 'select_only';
-            $db_password = '';
+            $db_user = self::SELECT_DB_USER;
+            $db_password = self::SELECT_DB_PASSWORD;
         } else {
-            $db_user = 'root';
-            $db_password = '';
+            $db_user = self::DB_USER;
+            $db_password = self::DB_PASSWORD;
         }
         $options = array(
             PDO::ATTR_PERSISTENT => true,
