@@ -131,8 +131,16 @@ class main extends config
         unset($_SESSION['' . $session . '']);
     }
 
+    public function updateLoggedOut()
+    {
+        $db = $this->db_connect();
+        $update = $db->prepare("UPDATE `accounts` SET `logged_out` = NOW() WHERE `uid` = ? LIMIT 1;");
+        $update->execute([$_SESSION['user']]);
+    }
+
     public function logout(string $redirect_to = '../index.php')
     {
+        $this->updateLoggedOut();
         $this->killSession();
         $this->unsetSession('user');
         $this->redirectTo($redirect_to);
