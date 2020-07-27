@@ -308,4 +308,12 @@ class main extends config
         return $dir_level;
     }
 
+    public function footer()
+    {
+        $this->tagOpen('div', 'row');
+        $this->tagOpen('div', 'col-12');
+        $this->outputString("<p class='footer-text'>" . self::WEBSITE_NAME . " delivered by <a href='https://contenie.com'>contenie</a></p>");
+        $this->tagClose('div', 2);
+    }
+
 }
