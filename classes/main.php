@@ -131,6 +131,13 @@ class main extends config
         unset($_SESSION['' . $session . '']);
     }
 
+    public function logout(string $redirect_to = '../index.php')
+    {
+        $this->killSession();
+        $this->unsetSession('user');
+        $this->redirectTo($redirect_to);
+    }
+
     public function convertBytes(int $bytes, string $convert_to = 'KB', bool $format = true, int $decimals = 2): float
     {
         if ($convert_to == 'KB') {
