@@ -98,9 +98,9 @@ class loginHandler extends main
         $this->tagOpen('div', 'container');
         $this->formBuilder('POST', 'check_login.php');
         $this->inputBuilder('text', 'username', '', 'username', 3, 24, 'username');
-        $this->inputBuilder('text', 'THE_username', '', 'username');
+        $this->inputBuilder('text', 'THE_username', '', 'username', 3, 24);
         $this->tagOpen('div', 'form-group');
-        $this->inputBuilder('password', 'THE_password');
+        $this->inputBuilder('password', 'THE_password', '', '', 8, 54);
         $this->tagClose('div');
         $this->formButtonBuilder('Login');
         $this->tagClose('form');
