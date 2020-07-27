@@ -26,5 +26,13 @@ class accountHandler extends main
         $this->username = $this->user_data['username'];
     }
 
+    public function accountHomepage()
+    {
+        $this->pageHead("$this->username account", "$this->username account homepage.", '../', true, true, true, true);
+        $this->navBar('account');
+        $this->tagOpen('div', 'container');
+        $this->outputString("<h1>Welcome $this->username</h1>");
+        $this->tagClose('div');
+    }
 
 }
