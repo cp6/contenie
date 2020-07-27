@@ -45,12 +45,30 @@ class accountHandler extends main
         }
     }
 
+    public function accountTypeString(): string
+    {
+        if ($this->is_user) {
+            return 'Registered user';
+        }
+        if ($this->is_subbed_user) {
+            return 'Subscribed user';
+        }
+        if ($this->is_mod) {
+            return 'Moderator';
+        }
+        if ($this->is_admin) {
+            return 'Administrator';
+        }
+        return 'Unknown type';
+    }
+
     public function accountHomepage()
     {
         $this->pageHead("$this->username account", "$this->username account homepage.", '../', true, true, true, true);
         $this->navBar('account');
         $this->tagOpen('div', 'container');
         $this->outputString("<h1>Welcome $this->username</h1>");
+        $this->outputString("<p>Your account type is: {$this->accountTypeString()}</p>");
         $this->tagClose('div');
     }
 
