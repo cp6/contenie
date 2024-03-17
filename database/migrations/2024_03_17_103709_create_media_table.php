@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->char('sid', 8)->unique();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('upload_id');
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
             $table->string('ext', 4);
@@ -26,6 +27,7 @@ return new class extends Migration {
             $table->string('title', 32);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('upload_id')->references('id')->on('uploads')->onDelete('cascade');
         });
     }
 
