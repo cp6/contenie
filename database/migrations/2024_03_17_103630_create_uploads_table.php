@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->char('sid', 8)->unique();
             $table->unsignedBigInteger('user_id');
             $table->string('original_name');
             $table->timestamps();
