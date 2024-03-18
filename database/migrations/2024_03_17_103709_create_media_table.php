@@ -12,13 +12,13 @@ return new class extends Migration {
             $table->char('sid', 8)->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('upload_id');
+            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
             $table->string('ext', 4);
             $table->char('directory', 6);
-            $table->boolean('has_versions');
             $table->integer('size_kb');
-            $table->integer('duration_seconds')->nullable()->default(null);
+            $table->float('duration')->nullable()->default(null);
             $table->integer('bitrate_kbs')->nullable()->default(null);
             $table->float('framerate')->nullable()->default(null);
             $table->integer('height')->nullable()->default(null);

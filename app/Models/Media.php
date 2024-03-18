@@ -10,7 +10,7 @@ class Media extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sid', 'user_id', 'type', 'visibility', 'ext', 'directory', 'has_versions', 'size_kb', 'duration_seconds', 'bitrate_kbs', 'framerate', 'height', 'width', 'has_audio', 'title'];
+    protected $fillable = ['sid', 'user_id', 'upload_id', 'parent_id', 'type', 'visibility', 'ext', 'directory', 'size_kb', 'duration', 'bitrate_kbs', 'framerate', 'height', 'width', 'has_audio', 'title'];
 
     protected static function booted(): void
     {
