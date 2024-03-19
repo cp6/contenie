@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('mobile')->unique()->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->char('api_key',32)->unique();
+            $table->char('api_token',32)->unique();
             $table->rememberToken();
             $table->timestamps();
         });
