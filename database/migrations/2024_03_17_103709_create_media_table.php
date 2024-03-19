@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
             $table->string('ext', 4);
-            $table->char('directory', 6);
+            $table->unsignedBigInteger('directory_id');
             $table->integer('size_kb');
             $table->float('duration')->nullable()->default(null);
             $table->integer('bitrate_kbs')->nullable()->default(null);
@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('upload_id')->references('id')->on('uploads')->onDelete('cascade');
+            $table->foreign('directory_id')->references('id')->on('directories')->onDelete('cascade');
         });
     }
 
