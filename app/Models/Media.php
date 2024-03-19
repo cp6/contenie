@@ -17,7 +17,12 @@ class Media extends Model
         static::creating(function (Media $media) {
             $media->sid = Str::random(8);
         });
-
     }
+
+    public function directory(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Directory::class, 'id', 'directory_id');
+    }
+
 
 }
