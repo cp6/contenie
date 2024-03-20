@@ -20,7 +20,7 @@ class UploadController extends Controller
      */
     public function create()
     {
-        //
+        return view('upload.create');
     }
 
     /**
@@ -28,7 +28,36 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'file' => 'required|file',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $file->store('public'); // Save the file to the storage/uploads directory
+
+            // Handle the file upload
+
+            return response()->json(['success' => 'File uploaded successfully.']);
+        }
+
+        dd(1);
+
+        return response()->json(['error' => 'File not found.'], 404);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $original_name = $file->getClientOriginalName();
+            $ext = $file->getClientOriginalExtension();
+            $mime_type = $file->getClientMimeType();
+            $size_kb = $file->getSize() / 1024;
+            dd($file->getClientMimeType());
+        } else {
+            return redirect()->route('dashboard')->with('failed', 'globals.xml file was not uploaded CODE:2');
+        }
+
+        return redirect()->route('dashboard')->with('success', "globals.xml uploaded successfully.");
     }
 
     /**
