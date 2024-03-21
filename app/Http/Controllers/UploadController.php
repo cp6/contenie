@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Upload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UploadController extends Controller
 {
@@ -28,23 +29,9 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'file' => 'required|file',
         ]);
-
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $file->store('public'); // Save the file to the storage/uploads directory
-
-            // Handle the file upload
-
-            return response()->json(['success' => 'File uploaded successfully.']);
-        }
-
-        dd(1);
-
-        return response()->json(['error' => 'File not found.'], 404);
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -52,12 +39,15 @@ class UploadController extends Controller
             $ext = $file->getClientOriginalExtension();
             $mime_type = $file->getClientMimeType();
             $size_kb = $file->getSize() / 1024;
-            dd($file->getClientMimeType());
-        } else {
-            return redirect()->route('dashboard')->with('failed', 'globals.xml file was not uploaded CODE:2');
+            $sid = Str::random(8);
+
+            $file->storeAs('public/temp', $sid . '.' . $ext);
+
+            return response()->json(['success' => 'File uploaded successfully.']);
         }
 
-        return redirect()->route('dashboard')->with('success', "globals.xml uploaded successfully.");
+        return response()->json(['error' => 'File not found.'], 404);
+
     }
 
     /**
