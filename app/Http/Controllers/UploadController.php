@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Upload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UploadController extends Controller
@@ -38,10 +41,30 @@ class UploadController extends Controller
             $original_name = $file->getClientOriginalName();
             $ext = $file->getClientOriginalExtension();
             $mime_type = $file->getClientMimeType();
-            $size_kb = $file->getSize() / 1024;
+
             $sid = Str::random(8);
 
-            $file->storeAs('public/temp', $sid . '.' . $ext);
+            $store_temp = $file->storeAs('public/temp', $sid . '.' . $ext);
+
+            if ($store_temp) {
+                try {
+                    $upload = new Upload();
+                    $upload->user_id = Auth::id();
+                    $upload->original_name = $original_name;
+                    $upload->save();
+
+                    $media = new Media();
+                    $media->sid = $sid;
+                    $media->parent_id = null;
+                    $media->type = 1;
+                    $media->visibility = 0;
+                    $media->ext = $ext;
+                    $media->size_kb = $file->getSize() / 1024;
+                    $media->save();
+                } catch (\Exception $exception) {
+                    Log::debug($exception->getMessage());
+                }
+            }
 
             return response()->json(['success' => 'File uploaded successfully.']);
         }
