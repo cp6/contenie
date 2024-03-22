@@ -7,6 +7,7 @@ use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UploadController extends Controller
@@ -54,7 +55,11 @@ class UploadController extends Controller
                     $upload->save();
 
                     $media = new Media();
+                    $media->upload_id = $upload->user_id;
+                    $media->directory_id = \App\Models\Directory::cachedDirectories()->random()->id;
                     $media->sid = $sid;
+                    $media->user_id = Auth::id();
+                    $media->title = $sid;
                     $media->parent_id = null;
                     $media->type = 1;
                     $media->visibility = 0;
@@ -63,13 +68,17 @@ class UploadController extends Controller
                     $media->save();
                 } catch (\Exception $exception) {
                     Log::debug($exception->getMessage());
+                    //Delete file if the DB write didnt work
+                    if (Storage::disk('public')->exists('temp/' . $sid . '.' . $ext)) {
+                        Storage::disk('public')->delete('temp/' . $sid . '.' . $ext);
+                    }
+
                 }
             }
 
-            return response()->json(['success' => 'File uploaded successfully.']);
+            return redirect()->route('dashboard')->with('success', 'Created media');
         }
 
-        return response()->json(['error' => 'File not found.'], 404);
 
     }
 
