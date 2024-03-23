@@ -16,15 +16,19 @@ return new class extends Migration {
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
             $table->string('ext', 4);
+            $table->tinyInteger('audio_streams')->nullable()->default(null);
             $table->unsignedBigInteger('directory_id');
             $table->integer('size_kb');
             $table->float('duration')->nullable()->default(null);
             $table->integer('bitrate_kbs')->nullable()->default(null);
-            $table->float('framerate')->nullable()->default(null);
+            $table->integer('framerate')->nullable()->default(null);
             $table->integer('height')->nullable()->default(null);
             $table->integer('width')->nullable()->default(null);
             $table->boolean('has_audio')->nullable()->default(null);
+            $table->string('aspect_ratio', 32)->nullable()->default(null);
             $table->string('title', 32);
+            $table->string('mime', 32);
+            $table->string('codec',32)->nullable()->default(null);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('upload_id')->references('id')->on('uploads')->onDelete('cascade');
