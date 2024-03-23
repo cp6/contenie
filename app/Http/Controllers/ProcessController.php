@@ -11,41 +11,26 @@ use Illuminate\Support\Facades\Storage;
 
 class ProcessController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Process $process)
     {
         dd($process);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Process $process)
     {
         $media = Media::where('sid', $process->media_sid)->firstOrFail();
@@ -93,23 +78,17 @@ class ProcessController extends Controller
 
         }
 
-        return $format_details;
+        return view('process.edit', ['media' => $media]);
         //$file = Storage::disk('public')->path("temp/{$process->media_sid}.mp4");
         //$command = 'ffprobe -v error -show_format -show_streams -print_format json ' . $file;
         //return json_decode(shell_exec($command), true);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Process $process)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Process $process)
     {
         //
