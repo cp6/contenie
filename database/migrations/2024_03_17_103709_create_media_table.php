@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->char('sid', 8)->unique();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('upload_id');
+            $table->unsignedBigInteger('upload_id')->nullable()->default(null);
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
@@ -25,8 +25,7 @@ return new class extends Migration {
             $table->integer('height')->nullable()->default(null);
             $table->integer('width')->nullable()->default(null);
             $table->boolean('has_audio')->nullable()->default(null);
-            $table->string('aspect_ratio', 32)->nullable()->default(null);
-            $table->string('title', 32);
+            $table->string('aspect_ratio', 12)->nullable()->default(null);
             $table->string('mime', 32);
             $table->string('codec',32)->nullable()->default(null);
             $table->timestamps();
