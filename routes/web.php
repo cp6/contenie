@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/upload', [UploadController::class, 'create'])->name('upload');
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
+
+    Route::get('/process', [ProcessController::class, 'index'])->name('process.index');
+    Route::get('/process/{process}/edit', [ProcessController::class, 'edit'])->name('process.edit');
+    Route::get('/process/{process}', [ProcessController::class, 'show'])->name('process.show');
 });
 
 
