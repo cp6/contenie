@@ -67,19 +67,31 @@ class ProcessController extends Controller
 
         if (isset($format_details['audio'])) {
 
+            $index = 0;
             foreach ($format_details['audio'] as $stream) {
 
                 try {
                     Audio::create([
-                        
+                        'media_id' => $media->id,
+                        'index' => $index,
+                        'codec' => $stream['codec'],
+                        'profile' => $stream['profile'],
+                        'channels' => $stream['channels'],
+                        'rate' => $stream['rate'],
+                        'layout' => $stream['layout'],
+                        'size_kb' => $stream['size_kb'],
+                        'duration' => $stream['duration'],
+                        'bitrate_kbs' => $stream['bitrate_kbps'],
+                        'timebase' => $stream['timebase'],
+                        'name' => $stream['handler_name'] ?? null,
                     ]);
                 } catch (\Exception $exception) {
                     Log::debug($exception->getMessage());
                 }
+                $index++;
             }
 
         }
-
 
         return $format_details;
         //$file = Storage::disk('public')->path("temp/{$process->media_sid}.mp4");
