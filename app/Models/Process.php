@@ -13,6 +13,13 @@ class Process extends Model
 
     protected $fillable = ['status', 'media_id', 'media_sid', 'size_1', 'bitrate_1', 'size_2', 'bitrate_2', 'size_3', 'bitrate_3', 'size_4', 'bitrate_4'];
 
+    protected $with = ['media'];
+
+    public function media(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Media::class, 'sid', 'media_sid');
+    }
+
     public static function output(Media $media): array
     {
         $file = Storage::disk('public')->path("temp/{$media->sid}.{$media->ext}");
@@ -78,6 +85,21 @@ class Process extends Model
 
         $command = "ffmpeg -i $file -ss $seconds -vframes 1 $save_as";
         return shell_exec($command);
+    }
+
+    public static function ratios169(): array
+    {
+        return [
+            ['width' => 1920, 'height' => 1080],
+            ['width' => 1600, 'height' => 900],
+            ['width' => 1280, 'height' => 720],
+            ['width' => 1024, 'height' => 576],
+            ['width' => 768, 'height' => 432],
+            ['width' => 640, 'height' => 360],
+            ['width' => 512, 'height' => 288],
+            ['width' => 256, 'height' => 144],
+            ['width' => 192, 'height' => 108]
+        ];
     }
 
 }
