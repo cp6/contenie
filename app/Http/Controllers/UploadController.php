@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use App\Models\Meta;
 use App\Models\Process;
 use App\Models\Upload;
 use Faker\Factory;
@@ -51,7 +52,6 @@ class UploadController extends Controller
                     $media->directory_id = \App\Models\Directory::cachedDirectories()->random()->id;
                     $media->sid = $sid;
                     $media->user_id = Auth::id();
-                    $media->title = Factory::create()->sentence(3);
                     $media->parent_id = null;
                     $media->type = 1;
                     $media->visibility = 0;
@@ -59,6 +59,11 @@ class UploadController extends Controller
                     $media->mime = $file->getClientMimeType();
                     $media->size_kb = $file->getSize() / 1024;
                     $media->save();
+
+                    $meta = new Meta();
+                    $meta->media_id = $media->id;
+                    $meta->title = Factory::create()->sentence(4);
+                    $meta->save();
 
                     $process = new Process();
                     $process->media_id = $media->id;
@@ -73,7 +78,6 @@ class UploadController extends Controller
                     }
                     return response()->json(['id' => null]);
                 }
-
 
 
                 return response()->json(['id' => $process->id]);
