@@ -12,18 +12,13 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('media_id');
-            $table->char('media_sid', 8)->unique();
-            $table->string('size_1')->default(null)->nullable();//Main
-            $table->integer('bitrate_1')->default(null)->nullable();//Kbps
-            $table->string('size_2')->default(null)->nullable();
-            $table->integer('bitrate_2')->default(null)->nullable();
-            $table->string('size_3')->default(null)->nullable();
-            $table->integer('bitrate_3')->default(null)->nullable();
-            $table->string('size_4')->default(null)->nullable();//Lowest
-            $table->integer('bitrate_4')->default(null)->nullable();
+            $table->char('media_sid', 8);
+            $table->string('command');
+            $table->tinyInteger('type');
             $table->timestamps();
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
             $table->foreign('media_sid')->references('sid')->on('media')->onDelete('cascade');
+            $table->unique(['media_id', 'command']);
         });
     }
 

@@ -11,7 +11,7 @@ class Process extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status', 'media_id', 'media_sid', 'size_1', 'bitrate_1', 'size_2', 'bitrate_2', 'size_3', 'bitrate_3', 'size_4', 'bitrate_4'];
+    protected $fillable = ['status', 'media_id', 'media_sid', 'command', 'type'];
 
     protected $with = ['media'];
 
