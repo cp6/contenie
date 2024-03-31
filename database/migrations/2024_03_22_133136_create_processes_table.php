@@ -13,7 +13,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('media_id');
             $table->char('media_sid', 8);
-            $table->string('command');
+            $table->string('command')->nullable()->default(null);
             $table->tinyInteger('type');
             $table->timestamps();
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');

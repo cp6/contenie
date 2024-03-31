@@ -68,6 +68,7 @@ class UploadController extends Controller
                     $process = new Process();
                     $process->media_id = $media->id;
                     $process->media_sid = $media->sid;
+                    $process->type = 0;
                     $process->save();
 
                 } catch (\Exception $exception) {
