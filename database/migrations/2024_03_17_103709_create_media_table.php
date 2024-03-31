@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->tinyInteger('type');
             $table->tinyInteger('visibility')->default(0);//0 = hidden, 1 = public, 3 = restricted, 4 = paid
             $table->string('ext', 4);
-            $table->tinyInteger('audio_streams')->nullable()->default(null);
             $table->unsignedBigInteger('directory_id');
             $table->integer('size_kb');
             $table->float('duration')->nullable()->default(null);
