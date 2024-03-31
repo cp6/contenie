@@ -47,16 +47,28 @@ class UploadController extends Controller
                     $upload->original_name = $file->getClientOriginalName();
                     $upload->save();
 
+                    $mime = $file->getClientMimeType();
+
+                    if (str_starts_with($mime, 'video/')) {
+                        $type = 1;
+                    } elseif (str_starts_with($mime, 'audio/')) {
+                        $type = 2;
+                    } elseif (str_starts_with($mime, 'image/')) {
+                        $type = 3;
+                    } else {
+                        $type = 0;
+                    }
+
                     $media = new Media();
                     $media->upload_id = $upload->user_id;
                     $media->directory_id = \App\Models\Directory::cachedDirectories()->random()->id;
                     $media->sid = $sid;
                     $media->user_id = Auth::id();
                     $media->parent_id = null;
-                    $media->type = 1;
+                    $media->type = $type;
                     $media->visibility = 0;
                     $media->ext = $ext;
-                    $media->mime = $file->getClientMimeType();
+                    $media->mime = $mime;
                     $media->size_kb = $file->getSize() / 1024;
                     $media->save();
 
