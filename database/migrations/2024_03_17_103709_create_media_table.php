@@ -25,9 +25,14 @@ return new class extends Migration {
             $table->integer('height')->nullable()->default(null);
             $table->integer('width')->nullable()->default(null);
             $table->boolean('has_audio')->nullable()->default(null);
+            $table->tinyInteger('audio_streams')->nullable()->default(null);//Audio
             $table->string('aspect_ratio', 12)->nullable()->default(null);
             $table->string('mime', 32);
             $table->string('codec',32)->nullable()->default(null);
+            $table->integer('rate');//Audio
+            $table->tinyInteger('channels');//Audio
+            $table->string('layout',32);//Audio
+            $table->string('timebase',32);//Audio
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('upload_id')->references('id')->on('uploads')->onDelete('cascade');
