@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->string('layout',32)->nullable()->default(null);//Audio
             $table->string('timebase',32)->nullable()->default(null);//Audio
             $table->timestamps();
+            $table->foreign('sid')->references('sid')->on('uploads')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('upload_id')->references('id')->on('uploads')->onDelete('cascade');
             $table->foreign('directory_id')->references('id')->on('directories')->onDelete('cascade');
