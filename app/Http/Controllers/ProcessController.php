@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Audio;
 use App\Models\Media;
 use App\Models\Process;
+use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -53,10 +54,7 @@ class ProcessController extends Controller
             ]);
         }
 
-        return view('process.edit', ['media' => $media, 'ratios' => Process::ratios169()]);
-        //$file = Storage::disk('public')->path("temp/{$process->media_sid}.mp4");
-        //$command = 'ffprobe -v error -show_format -show_streams -print_format json ' . $file;
-        //return json_decode(shell_exec($command), true);
+        return view('process.meta', ['media' => $media, 'ratios' => Process::ratios169()]);
     }
 
     public function update(Request $request, Process $process)
@@ -72,36 +70,33 @@ class ProcessController extends Controller
     public function thumbnailForTrim(Request $request, Process $process)
     {
         $type = $request->type;
-        Log::debug($request->time_string);
+
         $seconds = array_reduce(explode(':', $request->time_string), function ($carry, $item) {
             return $carry * 60 + $item;
         });
-        Log::debug($seconds);
+
         $file = Storage::disk('public')->path("temp/{$request->sid}.{$request->ext}");
         $save_as = storage_path("app/public/temp/{$request->sid}_{$type}.jpg");
 
         $command = "ffmpeg -y -i $file -ss $seconds -vframes 1 $save_as";
-        Log::debug($command);
+
         return shell_exec($command);
     }
 
-    public function doTrim(Request $request, Process $process)
+    public function doTrim(Request $request, Upload $upload)
     {
-        //dd($process);
         $start = $request->start_value;
         $finish = $request->finish_value;
-        $file = Storage::disk('public')->path("temp/{$process->media_sid}.{$process->media->ext}");
-        $save_as = storage_path("app/public/temp/{$process->media_sid}_RENAME.{$process->media->ext}");
+        $file = Storage::disk('public')->path("temp/{$upload->sid}.{$upload->media->ext}");
+        $save_as = storage_path("app/public/temp/{$upload->sid}_RENAME.{$upload->media->ext}");
 
         $command = "ffmpeg -y -ss $start -i $file -t $finish -c copy $save_as";
-        Log::debug($command);
-        Log::debug("temp/{$process->media_sid}_RENAME.{$process->media->ext}");
-        Log::debug("temp/{$process->media_sid}.{$process->media->ext}");
 
         $trim = shell_exec($command);
 
-        Storage::disk('public')->move("temp/{$process->media_sid}_RENAME.{$process->media->ext}", "temp/{$process->media_sid}.{$process->media->ext}");
-        return $trim;
+        Storage::disk('public')->move("temp/{$upload->sid}_RENAME.{$upload->media->ext}", "temp/{$upload->sid}.{$upload->media->ext}");
+
+        return redirect()->route('upload.versions', $upload->sid);
     }
 
 }
