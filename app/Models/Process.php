@@ -17,7 +17,7 @@ class Process extends Model
 
     public function media(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Media::class, 'sid', 'media_sid');
+        return $this->hasOne(Media::class, 'sid', 'media_sid')->without('upload');
     }
 
     public static function output(Media $media): array
