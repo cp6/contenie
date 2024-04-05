@@ -10,7 +10,7 @@
                 class="col-span-12 p-2 bg-white border border-gray-200 rounded-lg shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-2">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Trim</h5>
-                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Next</button>
+                    <a href="{{route('upload.versions', $media->sid)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Next</a>
                 </div>
                 <div class="max-w-full mx-auto grid sm:grid-cols-12 grid-cols-1 gap-2">
                     <div class="col-span-6">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="max-w-full mx-auto grid sm:grid-cols-12 grid-cols-1 gap-2 text-center mt-2">
                     <div class="sm:col-start-5 sm:col-end-9 col-span-4 mx-auto"> <!-- Centering the col-span-4 -->
-                        <form method="POST" action="{{route('process.trim', request('process'))}}">
+                        <form method="POST" action="{{route('process.trim', request('upload'))}}">
                             @csrf
                             <input hidden="" type="text" name="start_value" id="start_value" value="00:00:00">
                             <input hidden="" type="text" name="finish_value" id="finish_value"
