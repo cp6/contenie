@@ -22,9 +22,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/upload', [UploadController::class, 'create'])->name('upload');
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
 
-    Route::get('/process', [ProcessController::class, 'index'])->name('process.index');
-    Route::get('/process/{process}/edit', [ProcessController::class, 'edit'])->name('process.edit');
+    Route::get('/upload/{upload:sid}/trim', [UploadController::class, 'editStepOne'])->name('upload.trim');
+    Route::post('/upload/{upload:sid}/trim', [ProcessController::class, 'doTrim'])->name('process.trim');
+
+    Route::get('/upload/{upload:sid}/versions', [UploadController::class, 'editStepTwo'])->name('upload.versions');
+    Route::get('/upload/{upload:sid}/meta', [UploadController::class, 'editStepThree'])->name('upload.meta');
+
     Route::get('/process/{process}', [ProcessController::class, 'show'])->name('process.show');
+
+    Route::post('/process/{process}/thumbnail', [ProcessController::class, 'thumbnailForTrim'])->name('process.thumbnail');
+
+
 });
 
 
