@@ -19,5 +19,10 @@ class Tag extends Model
         });
     }
 
+    public function assigned(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TagAssigned::class, 'tag_id', 'id');
+    }
+
 
 }
