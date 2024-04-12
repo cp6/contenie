@@ -36,5 +36,10 @@ class Media extends Model
         return $this->hasOne(Meta::class, 'media_id', 'id');
     }
 
+    public function tags(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TagAssigned::class, 'media_id', 'id');
+    }
+
 
 }
