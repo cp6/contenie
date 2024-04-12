@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Media extends Model
 {
@@ -39,6 +38,11 @@ class Media extends Model
     public function tags(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TagAssigned::class, 'media_id', 'id');
+    }
+
+    public function versions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
 
