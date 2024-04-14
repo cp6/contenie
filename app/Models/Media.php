@@ -45,5 +45,10 @@ class Media extends Model
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
+    public function moments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Moment::class, 'media_id', 'id');
+    }
+
 
 }
