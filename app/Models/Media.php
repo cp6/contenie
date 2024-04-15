@@ -11,7 +11,7 @@ class Media extends Model
 
     protected $fillable = ['sid', 'user_id', 'upload_id', 'parent_id', 'type', 'visibility', 'ext', 'audio_streams', 'directory_id', 'size_kb', 'duration', 'bitrate_kbs', 'framerate', 'height', 'width', 'has_audio', 'aspect_ratio', 'mime', 'codec', 'rate', 'channels', 'layout', 'timebase'];
 
-    protected $with = ['directory', 'meta'];
+    protected $with = ['directory', 'meta', 'moments'];
 
     protected static function booted(): void
     {
