@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MomentRequest;
 use App\Models\Moment;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class MomentController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(MomentRequest $request)
     {
         //
     }
@@ -32,7 +33,7 @@ class MomentController extends Controller
         //
     }
 
-    public function update(Request $request, Moment $moment)
+    public function update(MomentRequest $request, Moment $moment)
     {
         //
     }
