@@ -11,4 +11,5 @@ class Meta extends Model
 
     protected $fillable = ['media_id', 'title', 'description', 'slug'];
 
+
 }
