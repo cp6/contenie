@@ -11,6 +11,8 @@ class TagAssigned extends Model
 
     protected $fillable = ['tag_id', 'media_id'];
 
+    protected $with = ['tag'];
+
     public function tag(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Tag::class, 'id', 'tag_id');
