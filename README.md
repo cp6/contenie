@@ -4,4 +4,4 @@
 
 Built with Laravel 11 and PHP 8.3
 
-FFmmpeg required
+FFmmpeg and FFprobe required
