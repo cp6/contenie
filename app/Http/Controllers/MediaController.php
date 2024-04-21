@@ -23,7 +23,15 @@ class MediaController extends Controller
 
     public function show(Media $media)
     {
-        //
+        if ($media->type === 1) {//Video
+
+        } elseif ($media->type === 2) {//Audio
+
+        } elseif ($media->type === 3) {//Image
+
+        } else {//Other
+
+        }
     }
 
     public function edit(Media $media)
