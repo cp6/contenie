@@ -159,9 +159,9 @@
                         @csrf
                         <div>
                             <input type="hidden" name="media_id" value="{{$media->id}}">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Main
+                            <label for="main_bitrate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Main
                                 version bitrate Kbps</label>
-                            <input type="number" step="1" id="main_bitrate" value="{{(int)$media->bitrate_kbs}}"
+                            <input type="number" step="1" id="main_bitrate" name="main_bitrate" value="{{(int)$media->bitrate_kbs}}"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                    placeholder="" min="200" max="{{$media->bitrate_kbs}}" required/>
                         </div>
@@ -207,7 +207,7 @@
                             </select>
                         </div>
                         <div>
-                            <label for="second_bitrate"
+                            <label for="third_bitrate"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Third version
                                 bitrate Kbps</label>
                             <input type="number" name="third_bitrate" step="1" id="third_bitrate"
