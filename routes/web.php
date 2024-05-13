@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MetaController;
 use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/upload/{upload:sid}/versions', [UploadController::class, 'editStepTwo'])->name('upload.versions');
     Route::get('/upload/{upload:sid}/meta', [UploadController::class, 'editStepThree'])->name('upload.meta');
+    Route::post('/upload/{upload:sid}/meta', [MetaController::class, 'store'])->name('meta.store');
 
     Route::get('/process/{process}', [ProcessController::class, 'show'])->name('process.show');
     Route::post('/process/{upload:sid}', [ProcessController::class, 'store'])->name('process.store');
