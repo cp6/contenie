@@ -155,9 +155,10 @@
                     <a href="{{route('upload.meta', $media->sid)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Next</a>
                 </div>
                 <div class="flow-root">
-                    <form class="space-y-6" action="#">
+                    <form class="space-y-6" action="{{route('process.store', $media->sid)}}" method="POST">
                         @csrf
                         <div>
+                            <input type="hidden" name="media_id" value="{{$media->id}}">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Main
                                 version bitrate Kbps</label>
                             <input type="number" step="1" id="main_bitrate" value="{{(int)$media->bitrate_kbs}}"
@@ -175,7 +176,7 @@
                                     @if($ratio['width'] > $media->width)
                                         @continue
                                     @endif
-                                    <option value="" @if($loop->index === 2) selected @endif>{{$ratio['width']}}
+                                    <option value="{{$ratio['width']}}:{{$ratio['height']}}" @if($loop->index === 2) selected @endif>{{$ratio['width']}}
                                         x {{$ratio['height']}}</option>
                                 @endforeach
                             </select>
@@ -200,7 +201,7 @@
                                     @if($ratio['width'] > $media->width)
                                         @continue
                                     @endif
-                                    <option value="" @if($loop->index === 4) selected @endif>{{$ratio['width']}}
+                                    <option value="{{$ratio['width']}}:{{$ratio['height']}}" @if($loop->index === 4) selected @endif>{{$ratio['width']}}
                                         x {{$ratio['height']}}</option>
                                 @endforeach
                             </select>
@@ -225,13 +226,13 @@
                                     @if($ratio['width'] > $media->width)
                                         @continue
                                     @endif
-                                    <option value="" @if($loop->index === 5) selected @endif>{{$ratio['width']}}
+                                    <option value="{{$ratio['width']}}:{{$ratio['height']}}" @if($loop->index === 5) selected @endif>{{$ratio['width']}}
                                         x {{$ratio['height']}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div>
-                            <label for="second_bitrate"
+                            <label for="fourth_bitrate"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fourth version
                                 Bitrate Kbps</label>
                             <input type="number" name="fourth_bitrate" step="1" id="fourth_bitrate"
