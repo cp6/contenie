@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/upload/{upload:sid}/meta', [UploadController::class, 'editStepThree'])->name('upload.meta');
 
     Route::get('/process/{process}', [ProcessController::class, 'show'])->name('process.show');
+    Route::post('/process/{upload:sid}', [ProcessController::class, 'store'])->name('process.store');
 
     Route::post('/process/{process}/thumbnail', [ProcessController::class, 'thumbnailForTrim'])->name('process.thumbnail');
 
