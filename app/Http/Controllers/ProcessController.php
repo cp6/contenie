@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Mockery\Exception;
 
 class ProcessController extends Controller
 {
@@ -24,9 +25,54 @@ class ProcessController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Upload $upload)
     {
-        //
+        //dd($request->all());
+        $request->validate([
+            'media_id' => 'integer|required',
+            'second_bitrate' => 'nullable|integer',
+            'third_bitrate' => 'nullable|integer',
+            'fourth_bitrate' => 'nullable|integer'
+        ]);
+
+        if (!is_null($request->second_ratio)) {
+            try {
+                $process_2 = new Process();
+                $process_2->media_sid = $upload->sid;
+                $process_2->media_id = $request->media_id;
+                $process_2->command = '-vf "scale=' . $request->second_ratio . '" -b:v ' . $request->second_bitrate . 'K';
+                $process_2->type = 2;
+                $process_2->save();
+            } catch (\Exception $exception) {
+
+            }
+        }
+        if (!is_null($request->third_ratio)) {
+            try {
+                $process_3 = new Process();
+                $process_3->media_sid = $upload->sid;
+                $process_3->media_id = $request->media_id;
+                $process_3->command = '-vf "scale=' . $request->third_ratio . '" -b:v ' . $request->third_bitrate . 'K';
+                $process_3->type = 2;
+                $process_3->save();
+            } catch (\Exception $exception) {
+
+            }
+        }
+        if (!is_null($request->fourth_ratio)) {
+            try {
+                $process_4 = new Process();
+                $process_4->media_sid = $upload->sid;
+                $process_4->media_id = $request->media_id;
+                $process_4->command = '-vf "scale=' . $request->fourth_ratio . '" -b:v ' . $request->fourth_bitrate . 'K';
+                $process_4->type = 2;
+                $process_4->save();
+            } catch (\Exception $exception) {
+
+            }
+        }
+
+        return redirect()->route('upload.meta', $upload->sid);
     }
 
     public function show(Process $process)
