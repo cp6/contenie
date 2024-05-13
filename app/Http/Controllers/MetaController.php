@@ -28,11 +28,6 @@ class MetaController extends Controller
 
     }
 
-    public function show(Meta $meta)
-    {
-        //
-    }
-
     public function edit(Meta $meta)
     {
         //
@@ -43,8 +38,4 @@ class MetaController extends Controller
         //
     }
 
-    public function destroy(Meta $meta)
-    {
-        //
-    }
 }
