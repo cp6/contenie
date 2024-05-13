@@ -20,11 +20,6 @@ class ProcessController extends Controller
         //
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request, Upload $upload)
     {
         //dd($request->all());
@@ -101,16 +96,6 @@ class ProcessController extends Controller
         }
 
         return view('process.meta', ['media' => $media, 'ratios' => Process::ratios169()]);
-    }
-
-    public function update(Request $request, Process $process)
-    {
-        //
-    }
-
-    public function destroy(Process $process)
-    {
-        //
     }
 
     public function thumbnailForTrim(Request $request, Process $process)
