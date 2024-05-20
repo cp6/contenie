@@ -41,5 +41,7 @@ class MomentController extends Controller
     public function destroy(Moment $moment)
     {
         //
+        $moment->delete();
     }
+
 }

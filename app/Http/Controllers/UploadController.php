@@ -165,6 +165,7 @@ class UploadController extends Controller
     public function destroy(Upload $upload)
     {
         //
+        $upload->delete();
     }
 
 }

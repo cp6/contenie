@@ -48,6 +48,6 @@ class TagAssignedController extends Controller
 
     public function destroy(TagAssigned $tagAssigned)
     {
-        //
+        $tagAssigned->delete();
     }
 }
