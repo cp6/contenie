@@ -17,7 +17,9 @@ class UploadController extends Controller
 {
     public function index()
     {
-        //
+        $uploads = Upload::get();
+        return view('uploads.index', compact('uploads'));
+        dd($uploads);
     }
 
     public function create()
