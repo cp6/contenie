@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/uploads/', [UploadController::class, 'index'])->name('upload.index');
 
     Route::get('/upload', [UploadController::class, 'create'])->name('upload');
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
